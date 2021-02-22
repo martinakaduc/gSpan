@@ -127,7 +127,7 @@ class Graph(object):
                     display_str += 'e {} {} {}'.format(frm, to, edges[to].elb)
         return display_str
 
-    def plot(self):
+    def plot(self, style=5):
         """Visualize the graph."""
         try:
             import networkx as nx
@@ -149,6 +149,21 @@ class Graph(object):
                  min(16, 1 * len(self.vertices)))
         plt.figure(3, figsize=fsize)
         pos = nx.spectral_layout(gnx)
-        nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs)
-        nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
+
+        if style == 0:
+            nx.draw_networkx(gnx, pos, arrows=True, with_labels=True, labels=vlbs)
+            nx.draw_networkx_edge_labels(gnx, pos, edge_labels=elbs)
+        elif style == 1:
+            nx.draw_circular(gnx, with_labels=True)
+        elif style == 2:
+            nx.draw_planar(gnx, with_labels=True)
+        elif style == 3:
+            nx.draw_random(gnx, with_labels=True)
+        elif style == 4:
+            nx.draw_spectral(gnx, with_labels=True)
+        elif style == 5:
+            nx.draw_spring(gnx, with_labels=True)
+        else:
+            nx.draw_shell(gnx, with_labels=True)
+
         plt.show()
